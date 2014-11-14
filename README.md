@@ -25,3 +25,4 @@ TODO: Write usage instructions here
   [gh-contrib]: https://github.com/usmu/usmu-s3/graphs/contributors
   [gh-issues]: https://github.com/usmu/usmu-s3/issues
   [license]: https://github.com/usmu/usmu-s3/blob/master/LICENSE.md
+  [usmu]: https://github.com/usmu/usmu
