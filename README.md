@@ -1,4 +1,4 @@
-# usmu-s3 [![Build Status](https://travis-ci.org/usmu/usmu-s3.svg?branch=master)](https://travis-ci.org/usmu/usmu-s3)
+# usmu-s3 [![Build Status](https://travis-ci.org/usmu/usmu-s3.svg?branch=master)](https://travis-ci.org/usmu/usmu-s3) [![Dependency Status](https://gemnasium.com/usmu/usmu-s3.svg)](https://gemnasium.com/usmu/usmu-s3)
 
 **Source:** [https://github.com/usmu/usmu-s3](https://github.com/usmu/usmu-s3)  
 **Author:** Matthew Scharley  
