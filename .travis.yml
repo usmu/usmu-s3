@@ -28,3 +28,6 @@ matrix:
     - rvm: rbx-2.2
     - rvm: rbx-2.3
     - rvm: rbx-2.4
+addons:
+  code_climate:
+    repo_token: ebb97d3c606e22753911d08f39444a86f27a7da6a40d834f94d640375615fff8
