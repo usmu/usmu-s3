@@ -2,6 +2,7 @@
   logging
   usmu/s3/s3_configuration
   usmu/s3/version
+  aws-sdk
 }.each {|f| require f }
 
 # Module from Usmu Core

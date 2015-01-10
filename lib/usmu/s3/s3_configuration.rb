@@ -6,16 +6,20 @@ module Usmu
         @config = hash
       end
 
+      def region
+        substitute_env(@config['region'] || '%env{AWS_REGION}')
+      end
+
       def access_key
-        substitute_env @config['access key']
+        substitute_env(@config['access key'] || '%env{AWS_ACCESS_KEY_ID}')
       end
 
       def secret_key
-        substitute_env @config['secret key']
+        substitute_env(@config['secret key'] || '%env{AWS_SECRET_ACCESS_KEY}')
       end
 
       def bucket
-        substitute_env @config['bucket']
+        substitute_env @config['bucket'] || ''
       end
 
       def inspect
@@ -25,7 +29,7 @@ module Usmu
       private
 
       def substitute_env(string)
-        string.gsub(/%env{([^}]*)}/) { ENV[$1] }
+        string.gsub(%r[%env\{([^}]*)\}]) { ENV[$1] }
       end
     end
   end
