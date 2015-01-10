@@ -7,7 +7,7 @@ RSpec.describe Usmu::S3::S3Configuration do
     expect(empty_configuration.inspect.match(/ secret_key="/)).to eq(nil)
   end
 
-  context 'uses AWS API environment variables for defaults' do
+  context 'uses AWS SDK environment variables for defaults' do
     before do
       allow(ENV).to receive(:'[]').with('AWS_REGION').and_return('us-east-1')
       allow(ENV).to receive(:'[]').with('AWS_ACCESS_KEY_ID').and_return('access_key_test')
