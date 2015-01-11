@@ -13,7 +13,7 @@ module Usmu
   class S3
     def initialize
       @log = Logging.logger[self]
-      @log.debug("Initializing usmu-s3 v#{Usmu::S3::VERSION}")
+      @log.debug("Initializing usmu-s3 v#{VERSION}")
     end
 
     # @see Usmu::Plugin::CoreHooks#commands
@@ -29,12 +29,17 @@ module Usmu
     end
 
     def command_deploy(args, options)
-      @configuration = @ui.configuration
-      @s3_configuration = S3Configuration.new(@configuration['plugin', 's3', default: {}])
-      p @s3_configuration
+      configuration = @ui.configuration
+      s3_configuration = S3Configuration.new(configuration['plugin', 's3', default: {}])
+      p s3_configuration
       @log.info('Deploying to AWS S3 with rainbows and fairy dust (coming soon).')
       # Determine files new/changed/removed - to be provided by a Core deployment API
       # Process files
     end
+
+    private
+
+    attr_reader :log
+    attr_reader :ui
   end
 end
