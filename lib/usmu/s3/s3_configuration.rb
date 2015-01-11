@@ -23,7 +23,7 @@ module Usmu
       end
 
       def inspect
-        "#<#{self.class.name} access_key=\"#{access_key}\" bucket=\"#{bucket}\">"
+        "\#<#{self.class} region=\"#{region}\" access_key=\"#{access_key}\" bucket=\"#{bucket}\">"
       end
 
       private
