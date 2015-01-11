@@ -1,5 +1,6 @@
 %w{
   logging
+  usmu/deployment
   usmu/s3/s3_configuration
   usmu/s3/version
   aws-sdk
@@ -28,9 +29,12 @@ module Usmu
     end
 
     def command_deploy(args, options)
-      @configuration = S3Configuration.new(@ui.configuration['plugin', 's3', default: {}])
-      p @configuration
+      @configuration = @ui.configuration
+      @s3_configuration = S3Configuration.new(@configuration['plugin', 's3', default: {}])
+      p @s3_configuration
       @log.info('Deploying to AWS S3 with rainbows and fairy dust (coming soon).')
+      # Determine files new/changed/removed - to be provided by a Core deployment API
+      # Process files
     end
   end
 end

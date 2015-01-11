@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'usmu', '~> 0.3', '>= 0.3.1'
+  spec.add_dependency 'usmu', '~> 0.3', '>= 0.3.2'
   spec.add_dependency 'aws-sdk', '~> 2.0.pre', '>= 2.0.17'
   spec.add_dependency 'logging', '~> 1.8'
 
