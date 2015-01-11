@@ -9,14 +9,25 @@ def current_gems
 end
 
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.pattern = 'test/spec/**/*_spec.rb'
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
 desc 'Run all test scripts'
-task :test => [:clean, :spec]
+task :test => [:clean, :spec, :mutant]
+
+desc 'Run mutation tests'
+task :mutant, [:target] => [:clean] do |t,args|
+  old = ENV.delete('CODECLIMATE_REPO_TOKEN')
+  if `which mutant 2>&1 > /dev/null; echo \$?`.to_i != 0
+    puts 'Mutant isn\'t supported on your platform. Please run these tests on MRI <= 2.1.5.'
+  else
+    sh('bundle', 'exec', 'mutant', '--include', 'lib', '--require', 'usmu/s3', '--use', 'rspec', args[:target] || 'Usmu::S3*')
+  end
+  ENV['CODECLIMATE_REPO_TOKEN'] = old unless old.nil?
+end
 
 desc 'Run CI test suite'
-task :ci => [:test]
+task :ci => [:clean, :spec]
 
 desc 'Clean up after tests'
 task :clean do
