@@ -1,3 +1,4 @@
+require 'aws-sdk'
 
 module Usmu
   class S3
@@ -24,6 +25,10 @@ module Usmu
 
       def inspect
         "\#<#{self.class} region=\"#{region}\" access_key=\"#{access_key}\" bucket=\"#{bucket}\">"
+      end
+
+      def credentials
+        @credentials ||= Aws::Credentials.new(access_key, secret_key)
       end
 
       private

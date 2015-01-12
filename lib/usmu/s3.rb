@@ -1,9 +1,10 @@
 %w{
+  aws-sdk
   logging
   usmu/deployment
+  usmu/s3/remote_files
   usmu/s3/s3_configuration
   usmu/s3/version
-  aws-sdk
 }.each {|f| require f }
 
 # Module from Usmu Core
@@ -33,7 +34,7 @@ module Usmu
       s3_configuration = S3Configuration.new(configuration['plugin', 's3', default: {}])
       p s3_configuration
       @log.info('Deploying to AWS S3 with rainbows and fairy dust (coming soon).')
-      # Determine files new/changed/removed - to be provided by a Core deployment API
+      diff = Deployment::DirectoryDiff.new(configuration, RemoteFiles.new(s3_configuration))
       # Process files
     end
 
