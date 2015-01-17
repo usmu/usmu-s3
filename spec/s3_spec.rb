@@ -14,7 +14,7 @@ RSpec.describe Usmu::S3 do
 
     it 'logs initialization' do
       plugin
-      expect(@log_output.readline).to eq("DEBUG  Usmu::S3 : Initializing usmu-s3 v#{Usmu::S3::VERSION}\n")
+      expect(@log_output.readline).to eq("  DEBUG  Usmu::S3 : Initializing usmu-s3 v#{Usmu::S3::VERSION}\n")
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Usmu::S3 do
       plugin.commands(ui, commander)
       # Discard the line from initialization
       @log_output.readline
-      expect(@log_output.readline).to eq("DEBUG  Usmu::S3 : Adding commands from usmu-s3.\n")
+      expect(@log_output.readline).to eq("  DEBUG  Usmu::S3 : Adding commands from usmu-s3.\n")
     end
 
     it 'preserves the UI for later usage' do

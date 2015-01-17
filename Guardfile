@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard :rspec, cmd: 'rspec', spec_paths: ['test/spec'] do
+guard :rspec, cmd: 'rspec', spec_paths: ['spec'] do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/usmu/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^spec/support})      { 'spec' }

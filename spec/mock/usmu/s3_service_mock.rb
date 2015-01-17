@@ -25,5 +25,11 @@ module Usmu
     def get_bucket
       @bucket
     end
+
+    def put_object(hash)
+    end
+
+    def delete_objects(request)
+    end
   end
 end

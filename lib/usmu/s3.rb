@@ -4,6 +4,7 @@
   usmu/deployment
   usmu/s3/remote_files
   usmu/s3/s3_configuration
+  usmu/s3/uploader
   usmu/s3/version
 }.each {|f| require f }
 
@@ -32,10 +33,12 @@ module Usmu
     def command_deploy(args, options)
       configuration = @ui.configuration
       s3_configuration = S3Configuration.new(configuration['plugin', 's3', default: {}])
-      p s3_configuration
-      @log.info('Deploying to AWS S3 with rainbows and fairy dust (coming soon).')
+      @log.info('Gathering information...')
       diff = Deployment::DirectoryDiff.new(configuration, RemoteFiles.new(s3_configuration))
-      # Process files
+      @log.info('Uploading files.')
+      uploader = Uploader.new(configuration, s3_configuration)
+      uploader.push(diff.get_diffs)
+      @log.info('Website updated successfully.')
     end
 
     private
