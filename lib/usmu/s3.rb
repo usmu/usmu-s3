@@ -30,7 +30,10 @@ module Usmu
       end
     end
 
-    def command_deploy(args, options)
+    def command_deploy(args = [], options = {})
+      raise 'This command does not take arguments.' unless args.empty?
+      raise 'Invalid options, must be a Hash.' unless options.instance_of? Hash
+
       configuration = @ui.configuration
       s3_configuration = S3Configuration.new(configuration['plugin', 's3', default: {}])
       @log.info('Gathering information...')
@@ -44,6 +47,6 @@ module Usmu
     private
 
     attr_reader :log
-    attr_reader :ui
+    attr_accessor :ui
   end
 end

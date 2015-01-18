@@ -1,4 +1,5 @@
 require 'usmu/s3/s3_configuration'
+require 'ostruct'
 
 RSpec.describe Usmu::S3::S3Configuration do
   let (:empty_configuration) { Usmu::S3::S3Configuration.new({}) }
@@ -92,6 +93,14 @@ RSpec.describe Usmu::S3::S3Configuration do
 
     it 'replaces multiple environment variables' do
       expect(empty_configuration.send :substitute_env, '%env{AWS_REGION},%env{TEST_REGION}').to eq('us-east-1,ap-southeast-2')
+    end
+  end
+
+  context '#credentials' do
+    it 'returns a new Aws::Credentials from it\'s settings' do
+      creds = OpenStruct.new {}
+      allow(Aws::Credentials).to receive(:new).with('access_key_test', 'secret_key_test').and_return(creds)
+      expect(empty_configuration.credentials).to eq(creds)
     end
   end
 end
