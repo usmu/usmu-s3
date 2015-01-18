@@ -10,6 +10,7 @@ RSpec.describe Usmu::S3::S3Configuration do
             'access key' => 'replace %env{TEST_ACCESS_KEY}',
             'secret key' => 'replace %env{TEST_SECRET_KEY}',
             'bucket' => 'replace %env{TEST_BUCKET}',
+            'reduced redundancy' => true,
         }
     )
   }
@@ -83,6 +84,16 @@ RSpec.describe Usmu::S3::S3Configuration do
 
     it 'replaces environment variables' do
       expect(configuration.bucket).to eq('replace example.com')
+    end
+  end
+
+  context '#reduced_redundancy' do
+    it 'has a default value of false' do
+      expect(empty_configuration.reduced_redundancy).to eq(false)
+    end
+
+    it 'returns the "reduced redundancy" key' do
+      expect(configuration.reduced_redundancy).to eq(true)
     end
   end
 

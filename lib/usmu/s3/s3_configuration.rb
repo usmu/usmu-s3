@@ -23,6 +23,10 @@ module Usmu
         substitute_env @config['bucket'] || ''
       end
 
+      def reduced_redundancy
+        @config['reduced redundancy'] || false
+      end
+
       def inspect
         "\#<#{self.class} region=\"#{region}\" access_key=\"#{access_key}\" bucket=\"#{bucket}\">"
       end

@@ -21,13 +21,14 @@ RSpec.describe Usmu::S3::Uploader do
   let (:uploader) { Usmu::S3::Uploader.new(configuration, s3_configuration) }
 
   before do
-    expect(s3_configuration).to receive(:credentials).and_return(creds)
+    allow(s3_configuration).to receive(:credentials).and_return(creds)
     expect(Aws::S3::Resource).to receive(:new).with({credentials: creds, region: 'us-east-1'}).and_return(s3)
   end
 
   context '#initialize' do
     it 'sets up instance variables' do
       expect(uploader.send :configuration).to eq(configuration)
+      expect(uploader.send :s3_configuration).to eq(s3_configuration)
       expect(uploader.send :bucket).to eq(s3)
       expect(s3.get_bucket).to eq('bucket')
       expect(uploader.send(:log).is_a? Logging::Logger).to eq(true)
@@ -51,14 +52,32 @@ RSpec.describe Usmu::S3::Uploader do
 
   context '#push_local' do
     let (:io) { OpenStruct.new {} }
+    let (:rr_configuration) {
+      Usmu::S3::S3Configuration.new(
+          {
+              'access key' => 'access',
+              'secret key' => 'secret',
+              'region' => 'us-east-1',
+              'bucket' => 'bucket',
+              'reduced redundancy' => true,
+          }
+      )
+    }
+    let (:rr_uploader) { Usmu::S3::Uploader.new(configuration, rr_configuration) }
 
     before do
       allow(File).to receive(:open).with('site/local.html', 'r').and_yield(io)
+      allow(rr_configuration).to receive(:credentials).and_return(creds)
     end
 
     it 'sends a request to S3 to push named files' do
-      expect(s3).to receive(:put_object).with({key: 'local.html', body: io})
+      expect(s3).to receive(:put_object).with({key: 'local.html', body: io, storage_class: 'STANDARD'})
       uploader.send :push_local, ['local.html']
+    end
+
+    it 'uses reduced redundancy if requested' do
+      expect(s3).to receive(:put_object).with({key: 'local.html', body: io, storage_class: 'REDUCED_REDUNDANCY'})
+      rr_uploader.send :push_local, ['local.html']
     end
 
     it 'logs files as they are pushed' do

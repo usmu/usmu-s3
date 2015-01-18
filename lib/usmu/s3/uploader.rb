@@ -7,6 +7,7 @@ module Usmu
       def initialize(configuration, s3_configuration)
         @log = Logging.logger[self]
         @configuration = configuration
+        @s3_configuration = s3_configuration
         s3 = Aws::S3::Resource.new(credentials: s3_configuration.credentials, region: s3_configuration.region)
         @bucket = s3.bucket(s3_configuration.bucket)
       end
@@ -21,15 +22,18 @@ module Usmu
 
       attr_reader :log
       attr_reader :configuration
+      attr_reader :s3_configuration
       attr_reader :bucket
 
       def push_local(files)
+        storage_class = @s3_configuration.reduced_redundancy ? 'REDUCED_REDUNDANCY' : 'STANDARD'
         for file in files
           @log.success("Uploading #{file}")
           File.open(File.join(@configuration.destination_path, file), 'r') do |io|
             @bucket.put_object({
                                    key: file,
                                    body: io,
+                                   storage_class: storage_class
                                })
           end
         end
