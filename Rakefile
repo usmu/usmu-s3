@@ -73,7 +73,7 @@ task :changelog, :since_c, :until_c do |t,args|
   cmd=`git log --pretty='format:%ci::::%an <%ae>::::%s::::%H' #{since_c}..#{until_c}`
 
   entries = Hash.new
-  changelog_content = "\#\# #{Usmu::VERSION}\n\n"
+  changelog_content = "\#\# #{Usmu::S3::VERSION}\n\n"
 
   cmd.lines.each do |entry|
     date, author, subject, hash = entry.chomp.split('::::')
