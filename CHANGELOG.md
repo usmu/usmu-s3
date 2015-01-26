@@ -1,5 +1,14 @@
 # Usmu S3 Upload plugin changelog
 
+## 1.1.0.pre
+
+Matthew Scharley <matt.scharley@gmail.com>
+
+* Bump to 1.1.0.pre for further dev (7778eab819fcbd07560615fa2e6333f8d339201e)
+* [ci skip] Update README (8638b8202aef9b9662fdbc738c209c485d206842)
+* [#9] Add reduced redundancy support (63506a00ac84e38f171e9386cd54ea2e0df8fab2)
+* Fix command's tests (788741ef5d95c766140e20bed7ea167f23451d22)
+
 ## 1.0.0
 
 Matthew Scharley <matt.scharley@gmail.com>
