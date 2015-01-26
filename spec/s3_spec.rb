@@ -3,6 +3,7 @@ require 'usmu/configuration'
 require 'usmu/uploader_mock'
 require 'usmu/commander_mock'
 require 'ostruct'
+require 'commander'
 
 RSpec.describe Usmu::S3 do
   let(:plugin) { Usmu::S3.new }
@@ -39,7 +40,7 @@ RSpec.describe Usmu::S3 do
       plugin.commands(ui, commander)
       expect(commander.get_command(:'s3 deploy')[:syntax]).to eq('usmu s3 deploy')
       expect(commander.get_command(:'s3 deploy')[:description]).to eq('Deploys your website to S3')
-      expect(commander.get_command(:'s3 deploy')[:action].arity).to eq(-1)
+      expect(commander.get_command(:'s3 deploy')[:action]).to be_a(Proc)
     end
   end
 
@@ -63,13 +64,14 @@ RSpec.describe Usmu::S3 do
     let(:diffs) { OpenStruct.new }
     let(:uploader) { Usmu::UploaderMock.new }
     let(:remote_files) { OpenStruct.new }
+    let (:options) { Commander::Command::Options.new }
 
     it 'raises an error when arguments are specified' do
-      expect { plugin.command_deploy(['foo']) }.to raise_error('This command does not take arguments.')
+      expect { plugin.command_deploy(['foo'], options) }.to raise_error('This command does not take arguments')
     end
 
     it 'raises an error when invalid options are specified' do
-      expect { plugin.command_deploy([], []) }.to raise_error('Invalid options, must be a Hash.')
+      expect { plugin.command_deploy([], []) }.to raise_error('Invalid options')
     end
 
     it 'gets a DirectoryDiff and passes that to an Uploader' do
@@ -78,7 +80,7 @@ RSpec.describe Usmu::S3 do
       expect(Usmu::Deployment::DirectoryDiff).to receive(:new).with(configuration, remote_files).and_return(differ)
       expect(Usmu::S3::Uploader).to receive(:new).with(configuration, s3_configuration).and_return(uploader)
       expect(Usmu::S3::S3Configuration).to receive(:new).with({'bucket' => 'test'}).and_return(s3_configuration)
-      plugin.command_deploy
+      plugin.command_deploy [], options
       expect(uploader.diffs).to eq(diffs)
     end
 
@@ -88,7 +90,7 @@ RSpec.describe Usmu::S3 do
       expect(Usmu::Deployment::DirectoryDiff).to receive(:new).with(empty_configuration, remote_files).and_return(differ)
       expect(Usmu::S3::Uploader).to receive(:new).with(empty_configuration, s3_configuration).and_return(uploader)
       expect(Usmu::S3::S3Configuration).to receive(:new).with({}).and_return(s3_configuration)
-      plugin.command_deploy
+      plugin.command_deploy [], options
     end
 
     it 'logs progress' do
@@ -97,7 +99,7 @@ RSpec.describe Usmu::S3 do
       expect(Usmu::Deployment::DirectoryDiff).to receive(:new).with(configuration, remote_files).and_return(differ)
       expect(Usmu::S3::Uploader).to receive(:new).with(configuration, s3_configuration).and_return(uploader)
       expect(Usmu::S3::S3Configuration).to receive(:new).with({'bucket' => 'test'}).and_return(s3_configuration)
-      plugin.command_deploy
+      plugin.command_deploy [], options
 
       # Discard the line from initialization
       @log_output.readline

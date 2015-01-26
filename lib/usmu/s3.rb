@@ -30,9 +30,9 @@ module Usmu
       end
     end
 
-    def command_deploy(args = [], options = {})
-      raise 'This command does not take arguments.' unless args.empty?
-      raise 'Invalid options, must be a Hash.' unless options.instance_of? Hash
+    def command_deploy(args, options)
+      raise 'This command does not take arguments' unless args.empty?
+      raise 'Invalid options' unless options.inspect.start_with? '<Commander::Command::Options '
 
       configuration = @ui.configuration
       s3_configuration = S3Configuration.new(configuration['plugin', 's3', default: {}])
