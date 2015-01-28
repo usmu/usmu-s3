@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new('>= 1.9.3')
 
-  spec.add_dependency 'usmu', '~> 0.3', '>= 0.3.4'
+  spec.add_dependency 'usmu', '~> 1.0'
   spec.add_dependency 'logging', '~> 1.8'
   spec.add_dependency 'aws-sdk', '~> 2.0.pre', '>= 2.0.17'
   #spec.add_dependency 'ruby-filemagic', '~> 0.6'
