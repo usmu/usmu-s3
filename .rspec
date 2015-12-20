@@ -1,6 +1,5 @@
 --color
 -I spec
--r turnip/rspec
 --require spec_helper
 --format documentation
 --no-profile
