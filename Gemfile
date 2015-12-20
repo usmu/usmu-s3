@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 gemspec name: 'usmu-s3'
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
+gem 'mutant', '~> 0.8', group: 'mutant'
+gem 'mutant-rspec', '~> 0.8', group: 'mutant'
 
-if RUBY_VERSION.to_f >= 2 && RUBY_VERSION.to_f < 2.2 && RUBY_ENGINE == 'ruby'
-  gem 'mutant', '~> 0.7', :group => :development
-  gem 'mutant-rspec', '~> 0.7', :group => :development
-end
