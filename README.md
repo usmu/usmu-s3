@@ -43,6 +43,7 @@ will default to the above environment variables (the same ones used by the SDK) 
 
 ## Usage
 
+    $ usmu generate
     $ usmu s3 deploy
 
   [gh-contrib]: https://github.com/usmu/usmu-s3/graphs/contributors
