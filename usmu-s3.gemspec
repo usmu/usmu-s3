@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = Gem::Requirement.new('>= 1.9.3')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.0.0')
 
   spec.add_dependency 'usmu', '~> 1.0'
   spec.add_dependency 'logging', '~> 2.0'
