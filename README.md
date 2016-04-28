@@ -1,6 +1,6 @@
 # usmu-s3
 
-[![Build Status](https://travis-ci.org/usmu/usmu-s3.svg?branch=master)](https://travis-ci.org/usmu/usmu-s3)
+[![Circle CI](https://circleci.com/gh/usmu/usmu-s3/tree/master.svg?style=svg)](https://circleci.com/gh/usmu/usmu-s3/tree/master)
 [![Dependency Status](https://gemnasium.com/usmu/usmu-s3.svg)](https://gemnasium.com/usmu/usmu-s3)
 [![Code Climate](https://codeclimate.com/github/usmu/usmu-s3/badges/gpa.svg)](https://codeclimate.com/github/usmu/usmu-s3)
 
