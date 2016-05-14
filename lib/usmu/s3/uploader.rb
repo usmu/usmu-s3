@@ -16,6 +16,7 @@ module Usmu
         push_local(diff[:local])
         push_local(diff[:updated])
         delete_remote(diff[:remote])
+        update_redirects()
       end
 
       private
@@ -48,6 +49,9 @@ module Usmu
           end
           @bucket.delete_objects({delete: {objects: deleting.map { |f| {key: f} }}})
         end
+      end
+
+      def update_redirects
       end
     end
   end

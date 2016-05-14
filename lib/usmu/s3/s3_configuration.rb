@@ -27,6 +27,10 @@ module Usmu
         @config['reduced redundancy'] || false
       end
 
+      def redirects
+        @config['redirects'] || {}
+      end
+
       def inspect
         "\#<#{self.class} region=\"#{region}\" access_key=\"#{access_key}\" bucket=\"#{bucket}\">"
       end

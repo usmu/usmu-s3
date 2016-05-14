@@ -18,12 +18,16 @@ Allows you to deploy your [Usmu][usmu] website to Amazon's S3 service.
 
 ## Installation
 
-    $ gem install usmu-s3
+```console
+gem install usmu-s3
+```
 
 OR
 
-    $ echo 'gem "usmu-s3"' >> Gemfile
-    $ bundle install
+```console
+echo 'gem "usmu-s3"' >> Gemfile
+bundle install
+```
 
 Usmu will automatically detect any plugins available and automatically make them available.
 
@@ -31,20 +35,28 @@ Usmu will automatically detect any plugins available and automatically make them
 
 You can configure this plugin in your `usmu.yml` file:
 
-    plugin:
-      s3:
-        access_key: '%env{AWS_ACCESS_KEY_ID}'
-        secret_key: '%env{AWS_SECRET_ACCESS_KEY}'
-        region: 'us-east-1'
-        bucket: 'usmu.org'
+```yaml
+plugin:
+  s3:
+    access_key: '%env{AWS_ACCESS_KEY_ID}'
+    secret_key: '%env{AWS_SECRET_ACCESS_KEY}'
+    region: 'us-east-1'
+    bucket: 'usmu.org'
+    redirects:
+      "index.php": "index.html"
+      "some/old/post.html": "updated/link.html"
+      "go-to-google": "http://google.com/"
+```
 
-All S3 configuration options can be pulled from environment variables as shown above. Your access key and secret key
+All S3 access options can be pulled from environment variables as shown above. Your access key and secret key
 will default to the above environment variables (the same ones used by the SDK) if not specified.
 
 ## Usage
 
-    $ usmu generate
-    $ usmu s3 deploy
+```console
+$ usmu generate
+$ usmu s3 deploy
+```
 
   [gh-contrib]: https://github.com/usmu/usmu-s3/graphs/contributors
   [gh-issues]: https://github.com/usmu/usmu-s3/issues
